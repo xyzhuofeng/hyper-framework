@@ -1,0 +1,6 @@
+CREATE TABLE contacts(
+  id int PRIMARY KEY AUTO_INCREMENT COMMENT '联系人序号',
+  name VARCHAR(15) COMMENT '姓名',
+  phone CHAR(11) COMMENT '手机',
+  email VARCHAR(100) COMMENT '邮箱'
+)COMMENT '通讯录' ENGINE InnoDB CHAR SET utf8mb4;
