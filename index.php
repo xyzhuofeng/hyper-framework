@@ -99,16 +99,16 @@ require_once __DIR__ . '/common.php';
       <form action="./save.php" method="post">
         <div class="modal-body">
           <div class="form-group">
-            <label for="">联系人姓名</label>
-            <input class="form-control" type="text" name="" id="">
+            <label for="name">联系人姓名</label>
+            <input class="form-control" type="text" name="name" id="name" placeholder="必填" required>
           </div>
           <div class="form-group">
-            <label for="">手机</label>
-            <input class="form-control" type="text" name="" id="">
+            <label for="phone">手机</label>
+            <input class="form-control" type="text" name="phone" id="phone" placeholder="选填" maxlength="11">
           </div>
           <div class="form-group">
-            <label for="">邮箱</label>
-            <input class="form-control" type="email" name="" id="">
+            <label for="email">邮箱</label>
+            <input class="form-control" type="email" name="email" id="email" placeholder="选填">
           </div>
         </div>
         <div class="modal-footer">

@@ -4,6 +4,8 @@
  * 项目核心库文件
  */
 
+header('Content-Type: text/html;charset=utf8');
+
 /**
  * 配置类
  * Class Config
@@ -58,6 +60,8 @@ class DBDriver
             );
             // 始终抛出异常
             self::$pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+            // utf8编码
+            self::$pdo->exec('set names utf8mb4');
         } catch (Exception $e) {
             var_dump($e->getMessage());
         }
@@ -71,7 +75,7 @@ class DBDriver
  * @param string $url
  * @param int $wait_time
  */
-function success(string $info,string $url = null,int $wait_time = 1)
+function success(string $info, string $url = null, int $wait_time = 1)
 {
     if ($url == null) {
         $url = $_SERVER['HTTP_REFERER'];
@@ -86,8 +90,11 @@ function success(string $info,string $url = null,int $wait_time = 1)
  * @param string $url
  * @param int $wait_time
  */
-function error(string $info,string $url = null,int $wait_time = 3)
+function error(string $info, string $url = null, int $wait_time = 3)
 {
     require __DIR__ . '/error.php';
     exit;
 }
+
+// 导入模型类
+require_once __DIR__ . '/model/Contacts.php';
