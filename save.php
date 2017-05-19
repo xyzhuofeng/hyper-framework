@@ -43,3 +43,4 @@ $contacts = new Contacts();
 if ($contacts->save($data)) {
     success('新增成功');
 }
+error('新增失败');
