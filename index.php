@@ -19,10 +19,22 @@ require_once __DIR__ . '/common.php';
     <h1>通讯录</h1>
   </div>
   <div class="page-content">
-    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModalAdd">
-      <i class="glyphicon glyphicon-plus"></i> 新增
-    </button>
-    <button class="btn btn-danger"><i class="glyphicon glyphicon-minus"></i> 删除</button>
+    <div class="row">
+      <div class="col-sm-6">
+        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModalAdd">
+          <i class="glyphicon glyphicon-plus"></i> 新增
+        </button>
+        <button class="btn btn-danger">
+          <i class="glyphicon glyphicon-minus"></i> 删除
+        </button>
+      </div>
+      <div class="col-sm-6 text-right">
+        <form class="form-inline" action="./index.php" method="get">
+          <input type="text" name="keyword" class="form-control">
+          <input type="submit" value="搜索" class="btn btn-default">
+        </form>
+      </div>
+    </div>
     <table class="table table-hover">
       <thead>
       <tr>
@@ -34,6 +46,7 @@ require_once __DIR__ . '/common.php';
       </tr>
       </thead>
       <tbody>
+
       <tr>
         <td><input type="checkbox" name="cbox[]"></td>
         <td>庆爷</td>
