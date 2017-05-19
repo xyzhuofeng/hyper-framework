@@ -8,11 +8,15 @@
   <title>操作成功！</title>
 </head>
 <body>
-<h1>:) <?php echo $info; ?></h1>
-<h3><span id="wait_time"><?php echo $wait_time; ?></span> 秒后返回，点击 <a href="">返回</a></h3>
+<h1>:) <?php echo isset($info) ? $info : '未知错误'; ?></h1>
+<h3>
+  <span id="wait_time">
+        <?php echo isset($wait_time) ? $wait_time : 3; ?>
+  </span> 秒后返回，点击 <a href="">返回</a>
+</h3>
 <script>
-  var time = <?php echo $wait_time;?>;
-  var url = '<?php echo $url;?>';
+  var time = <?php echo isset($wait_time) ? $wait_time : 3; ?>;
+  var url = '<?php echo isset($url)?$url:'#';?>';
   var interval = setInterval(function () {
     time -= 1;
     document.getElementById('wait_time').innerHTML = time;
