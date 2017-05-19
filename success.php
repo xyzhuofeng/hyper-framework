@@ -12,11 +12,11 @@
 <h3>
   <span id="wait_time">
         <?php echo isset($wait_time) ? $wait_time : 3; ?>
-  </span> 秒后返回，点击 <a href="">返回</a>
+  </span> 秒后返回，点击 <a href="<?php echo isset($url) ? $url : '#'; ?>">返回</a>
 </h3>
 <script>
   var time = <?php echo isset($wait_time) ? $wait_time : 3; ?>;
-  var url = '<?php echo isset($url)?$url:'#';?>';
+  var url = '<?php echo isset($url) ? $url : '#';?>';
   var interval = setInterval(function () {
     time -= 1;
     document.getElementById('wait_time').innerHTML = time;
