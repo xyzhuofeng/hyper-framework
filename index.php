@@ -1,5 +1,11 @@
 <?php
 require_once __DIR__ . '/common.php';
+// 过滤参数
+if (isset($_GET['keyword']) && $_GET['keyword'] !== '') {
+    $keyword = addslashes(htmlspecialchars(trim($_GET['keyword'])));
+} else {
+    $keyword = null;
+}
 ?>
 <!doctype html>
 <html lang="zh-CN">
@@ -24,21 +30,22 @@ require_once __DIR__ . '/common.php';
         <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModalAdd">
           <i class="glyphicon glyphicon-plus"></i> 新增
         </button>
-        <button class="btn btn-danger">
+        <button class="btn btn-danger" onclick="submitForm('deleteForm')">
           <i class="glyphicon glyphicon-minus"></i> 删除
         </button>
       </div>
       <div class="col-sm-6 text-right">
         <form class="form-inline" action="./index.php" method="get">
-          <input type="text" name="keyword" class="form-control">
+          <input type="text" name="keyword" class="form-control" placeholder="输入关键字" value="<?php echo $keyword ? $keyword : ''; ?>">
           <input type="submit" value="搜索" class="btn btn-default">
+          <a href="./index.php">清除条件</a>
         </form>
       </div>
     </div>
     <table class="table table-hover">
       <thead>
       <tr>
-        <th><input type="checkbox"></th>
+        <th><input type="checkbox" onclick="selectAll(this,'id_list[]')"></th>
         <th>联系人</th>
         <th>手机</th>
         <th>邮箱</th>
@@ -46,35 +53,26 @@ require_once __DIR__ . '/common.php';
       </tr>
       </thead>
       <tbody>
-
-      <tr>
-        <td><input type="checkbox" name="cbox[]"></td>
-        <td>庆爷</td>
-        <td>123456</td>
-        <td>123@qq.com</td>
-        <td><a href="">编辑</a></td>
-      </tr>
-      <tr>
-        <td><input type="checkbox" name="cbox[]"></td>
-        <td>庆爷</td>
-        <td>123456</td>
-        <td>123@qq.com</td>
-        <td><a href="">编辑</a></td>
-      </tr>
-      <tr>
-        <td><input type="checkbox" name="cbox[]"></td>
-        <td>庆爷</td>
-        <td>123456</td>
-        <td>123@qq.com</td>
-        <td><a href="">编辑</a></td>
-      </tr>
-      <tr>
-        <td><input type="checkbox" name="cbox[]"></td>
-        <td>庆爷</td>
-        <td>123456</td>
-        <td>123@qq.com</td>
-        <td><a href="">编辑</a></td>
-      </tr>
+      <form action="./delete.php" method="post" id="deleteForm">
+          <?php
+          if ($keyword) {
+              $result =Contacts::findByKeyword($keyword);
+          } else {
+              $result = Contacts::all();
+          }
+          foreach ($result as $item) {
+              echo <<<EOT
+<tr>
+  <td><input type="checkbox" name="id_list[]" value="{$item['id']}"></td>
+  <td>{$item['name']}</td>
+  <td>{$item['phone']}</td>
+  <td>{$item['email']}</td>
+  <td><a href="">编辑</a></td>
+</tr>
+EOT;
+          }
+          ?>
+      </form>
       </tbody>
     </table>
     <div class="text-center">
@@ -133,4 +131,26 @@ require_once __DIR__ . '/common.php';
   </div>
 </div>
 </body>
+<script>
+  /**
+   * 全选/全不选checkbox
+   * @param checkObject 全选多选框对象
+   * @param checkArrayId 多选框组id如："box[]"
+   */
+  function selectAll(checkObject, checkArrayId) {
+    if (checkObject.checked) {
+      $("input[name='" + checkArrayId + "']").prop("checked", true);
+    } else {
+      $("input[name='" + checkArrayId + "']").prop("checked", false);
+    }
+  }
+
+  /**
+   * 提交表单
+   * @param id 表单id
+   */
+  function submitForm(id) {
+    document.getElementById(id).submit();
+  }
+</script>
 </html>
