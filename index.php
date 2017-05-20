@@ -6,6 +6,12 @@ if (isset($_GET['keyword']) && $_GET['keyword'] !== '') {
 } else {
     $keyword = null;
 }
+// 获取数据
+if ($keyword) {
+    $result = Contacts::findByKeyword($keyword);
+} else {
+    $result = Contacts::all();
+}
 ?>
 <!doctype html>
 <html lang="zh-CN">
@@ -59,11 +65,6 @@ if (isset($_GET['keyword']) && $_GET['keyword'] !== '') {
       <tbody>
       <form action="./delete.php" method="post" id="deleteForm">
           <?php
-          if ($keyword) {
-              $result = Contacts::findByKeyword($keyword);
-          } else {
-              $result = Contacts::all();
-          }
           foreach ($result as $item) {
               echo <<<EOT
 <tr>
@@ -79,6 +80,15 @@ EOT;
       </form>
       </tbody>
     </table>
+      <?php
+      if (!$result) {
+          echo <<<EOD
+<div class="text-center">
+  <p class="help-block">没有找到记录</p>
+</div>
+EOD;
+      }
+      ?>
     <div class="text-center">
       <nav aria-label="Page navigation">
         <ul class="pagination">

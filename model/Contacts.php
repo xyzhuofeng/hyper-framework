@@ -103,7 +103,7 @@ class Contacts
         $prepare = 'DELETE FROM contacts WHERE id IN (' . $list_str . ')';
         $state = $pdo->prepare($prepare);
         if ($state->execute()) {
-            $state->rowCount();
+            return $state->rowCount();
         }
         return false;
     }
