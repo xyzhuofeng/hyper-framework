@@ -27,6 +27,21 @@ class Contacts
     }
 
     /**
+     * 通过主键id获取记录
+     * @param int $id
+     * @return mixed
+     */
+    public static function get(int $id)
+    {
+        $pdo = DBDriver::getInstance();
+        $prepare = 'SELECT * FROM contacts WHERE id = ?';
+        $state = $pdo->prepare($prepare);
+        $state->bindParam(1, $id, PDO::PARAM_INT);
+        $state->execute();
+        return $state->fetch(PDO::FETCH_ASSOC);
+    }
+
+    /**
      * 获取所有联系人
      * @return array|null
      */
@@ -57,6 +72,26 @@ class Contacts
     }
 
     /**
+     * 根据id更新记录
+     * @param int $id 要更新的记录主键id
+     * @param array $data 更新的数据
+     * @return bool|string
+     */
+    public static function update(int $id, array $data)
+    {
+        $pdo = DBDriver::getInstance();
+        $state = $pdo->prepare('UPDATE contacts SET name=?,phone=?,email=? WHERE id=?');
+        $state->bindParam(1, $data['name']);
+        $state->bindParam(2, $data['phone']);
+        $state->bindParam(3, $data['email']);
+        $state->bindParam(4, $id);
+        if ($state->execute()) {
+            return $state->rowCount();
+        }
+        return false;
+    }
+
+    /**
      * 通过id列表批量删除记录
      * @param array $id_list
      * @return int
@@ -67,7 +102,9 @@ class Contacts
         $pdo = DBDriver::getInstance();
         $prepare = 'DELETE FROM contacts WHERE id IN (' . $list_str . ')';
         $state = $pdo->prepare($prepare);
-        $state->execute();
-        return $state->rowCount();
+        if ($state->execute()) {
+            $state->rowCount();
+        }
+        return false;
     }
 }

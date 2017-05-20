@@ -16,8 +16,11 @@ if (isset($_GET['keyword']) && $_GET['keyword'] !== '') {
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>首页</title>
   <link rel="stylesheet" href="./static/bootstrap-3.3.7-dist/css/bootstrap.min.css">
-  <script src="./static/js/jquery-3.1.1.min.js"></script>
-  <script src="./static/bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>
+  <style>
+    .container {
+      max-width: 750px;
+    }
+  </style>
 </head>
 <body>
 <div class="container">
@@ -36,7 +39,8 @@ if (isset($_GET['keyword']) && $_GET['keyword'] !== '') {
       </div>
       <div class="col-sm-6 text-right">
         <form class="form-inline" action="./index.php" method="get">
-          <input type="text" name="keyword" class="form-control" placeholder="输入关键字" value="<?php echo $keyword ? $keyword : ''; ?>">
+          <input type="text" name="keyword" class="form-control" placeholder="输入关键字"
+                 value="<?php echo $keyword ? $keyword : ''; ?>">
           <input type="submit" value="搜索" class="btn btn-default">
           <a href="./index.php">清除条件</a>
         </form>
@@ -56,7 +60,7 @@ if (isset($_GET['keyword']) && $_GET['keyword'] !== '') {
       <form action="./delete.php" method="post" id="deleteForm">
           <?php
           if ($keyword) {
-              $result =Contacts::findByKeyword($keyword);
+              $result = Contacts::findByKeyword($keyword);
           } else {
               $result = Contacts::all();
           }
@@ -67,7 +71,7 @@ if (isset($_GET['keyword']) && $_GET['keyword'] !== '') {
   <td>{$item['name']}</td>
   <td>{$item['phone']}</td>
   <td>{$item['email']}</td>
-  <td><a href="">编辑</a></td>
+  <td><a href="./edit.php?id={$item['id']}">编辑</a></td>
 </tr>
 EOT;
           }
@@ -111,15 +115,18 @@ EOT;
         <div class="modal-body">
           <div class="form-group">
             <label for="name">联系人姓名</label>
-            <input class="form-control" type="text" name="name" id="name" placeholder="必填" required>
+            <input class="form-control" type="text"
+                   name="name" id="name" placeholder="必填" required>
           </div>
           <div class="form-group">
             <label for="phone">手机</label>
-            <input class="form-control" type="text" name="phone" id="phone" placeholder="选填" maxlength="11">
+            <input class="form-control" type="text" name="phone" id="phone"
+                   placeholder="选填" minlength="11" maxlength="11">
           </div>
           <div class="form-group">
             <label for="email">邮箱</label>
-            <input class="form-control" type="email" name="email" id="email" placeholder="选填">
+            <input class="form-control" type="email"
+                   name="email" id="email" placeholder="选填">
           </div>
         </div>
         <div class="modal-footer">
@@ -131,6 +138,8 @@ EOT;
   </div>
 </div>
 </body>
+<script src="./static/js/jquery-3.1.1.min.js"></script>
+<script src="./static/bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>
 <script>
   /**
    * 全选/全不选checkbox
