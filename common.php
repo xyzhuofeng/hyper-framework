@@ -98,3 +98,4 @@ function error(string $info, string $url = null, int $wait_time = 3)
 
 // 导入模型类
 require_once __DIR__ . '/model/Contacts.php';
+require_once __DIR__ . '/model/Paginator.php';
