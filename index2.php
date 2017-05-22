@@ -30,14 +30,9 @@ if ($keyword) {
     // 总页数
     $total_page = ceil($total_count / $perpage_count);
 
-    $paginator=new Paginator();
-    $paginator->setData([
-        ['id'=>1],
-        ['id'=>2],
-        ['id'=>3],
-    ]);
-    foreach ($paginator as $item){
-      var_dump($item['id']);
+    $paginator = new Paginator(2, $total_count, $result);
+    foreach ($paginator as $item) {
+        var_dump($item);
     }
 }
 ?>
@@ -93,7 +88,7 @@ if ($keyword) {
       <tbody>
       <form action="./delete.php" method="post" id="deleteForm">
           <?php
-          foreach ($result as $item) {
+          foreach ($paginator as $item) {
               echo <<<EOT
 <tr>
   <td><input type="checkbox" name="id_list[]" value="{$item['id']}"></td>
@@ -109,7 +104,7 @@ EOT;
       </tbody>
     </table>
       <?php
-      if (!$result) {
+      if ($paginator->isEmpty()) {
           echo <<<EOD
 <div class="text-center">
   <p class="help-block">没有找到记录</p>
@@ -118,6 +113,7 @@ EOD;
       }
       ?>
     <div class="text-center">
+      <?php echo $paginator->render();?>
       <nav aria-label="Page navigation">
         <ul class="pagination">
           <li><a href="#">共 <?php echo $total_count; ?> 条</a></li>

@@ -13,14 +13,49 @@ class Paginator implements Iterator
      */
     private $data = [];
 
+    /**
+     * 数据集数组下标
+     * @var int
+     */
     private $position = 0;
 
     /**
+     * 每页显示条数
+     * @var int
+     */
+    private $max_perpage = 0;
+
+    /**
+     * 总记录数
+     * @var int
+     */
+    private $total;
+
+    public function __construct(int $max_perpage, int $total, array $data)
+    {
+        $this->max_perpage = $max_perpage;
+        $this->total = $total;
+        $this->data = $data;
+    }
+
+    /**
+     * 设置数据集
      * @param array $data
      */
     public function setData(array $data)
     {
         $this->data = $data;
+    }
+
+    public function isEmpty(){
+        return empty($this->data);
+    }
+
+    /**
+     * 渲染分页条
+     */
+    public function render(){
+        return "这是分页条";
     }
 
     /**
@@ -76,6 +111,6 @@ class Paginator implements Iterator
      */
     public function rewind()
     {
-        $this->position=0;
+        $this->position = 0;
     }
 }
