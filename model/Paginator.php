@@ -8,8 +8,7 @@
 class Paginator implements Iterator
 {
     /**
-     * 数据集
-     * @var array
+     * @var array 数据集
      */
     private $data = [];
 
@@ -20,22 +19,33 @@ class Paginator implements Iterator
     private $position = 0;
 
     /**
-     * 每页显示条数
-     * @var int
+     * @var int 每页显示条数
      */
     private $max_perpage = 0;
 
     /**
-     * 总记录数
-     * @var int
+     * @var int 总记录数
      */
-    private $total;
+    private $total_count;
 
-    public function __construct(int $max_perpage, int $total, array $data)
+    /**
+     * @var int 总页数
+     */
+    private $total_page;
+
+    /**
+     * @var int 当前页码
+     */
+    private $page;
+
+
+    public function __construct(int $max_perpage, int $total_count, array $data, $page)
     {
+        $this->page = $page;
         $this->max_perpage = $max_perpage;
-        $this->total = $total;
         $this->data = $data;
+        $this->total_count = $total_count;
+        $this->total_page = (int)ceil($total_count / $max_perpage);
     }
 
     /**
@@ -47,15 +57,66 @@ class Paginator implements Iterator
         $this->data = $data;
     }
 
-    public function isEmpty(){
+    public function isEmpty()
+    {
         return empty($this->data);
     }
 
     /**
      * 渲染分页条
      */
-    public function render(){
-        return "这是分页条";
+    public function render()
+    {
+        $str = '<nav aria-label="Page navigation">';
+        $str .= '<ul class="pagination">';
+        $str .= '<li><a href="#">共 ' . $this->$total_count . ' 条</a></li>';
+        // 上一页按钮
+        $css = '';
+        $url = '#';
+        // 已经是第一页自然就没有上一页
+        if ($this->page <= 1) {
+            $css = 'class="disabled"';
+        } else {
+            $url = './index2.php?page=' . ($this->page - 1);
+        }
+        $t = '';
+        $t .= <<<STR
+          <li {$css}>
+            <a href="{$url}" aria-label="Previous">
+              <span aria-hidden="true">&laquo;</span>
+            </a>
+          </li>
+STR;
+        $str .= $t;
+        // 页码
+        for ($i = 1; $i <= $this->$total_count; $i++) {
+            if ($i == $this->page) {
+                $str .= '<li class="active"><a href="#">' . $i . '</a></li>';
+            } else {
+                $str .= '<li><a href="./index2.php?page=' . $i . '">' . $i . '</a></li>';
+            }
+        }
+        // 下一页按钮
+        $css = '';
+        $url = '#';
+        // 已经是最后一页自然就没有下一页
+        if ($this->page >= $this->total_count) {
+            $css = 'class="disabled"';
+        } else {
+            $url = './index2.php?page=' . ($this->page + 1);
+        }
+        $t = '';
+        $t .= <<<STR
+          <li {$css}>
+            <a href="{$url}" aria-label="Next">
+              <span aria-hidden="true">&raquo;</span>
+            </a>
+          </li>
+STR;
+        $str .= $t;
+        $str .= '</ul>';
+        $str .= '</nav>';
+        return $str;
     }
 
     /**

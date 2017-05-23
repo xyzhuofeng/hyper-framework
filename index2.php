@@ -27,13 +27,7 @@ if ($keyword) {
     $state->execute();
     // 总记录数
     $total_count = $state->fetch(PDO::FETCH_ASSOC)['total'];
-    // 总页数
-    $total_page = ceil($total_count / $perpage_count);
-
-    $paginator = new Paginator(2, $total_count, $result);
-    foreach ($paginator as $item) {
-        var_dump($item);
-    }
+    $paginator = new Paginator(2, $total_count, $result, $page);
 }
 ?>
 <!doctype html>
@@ -113,7 +107,7 @@ EOD;
       }
       ?>
     <div class="text-center">
-      <?php echo $paginator->render();?>
+        <?php echo $paginator->render(); ?>
       <nav aria-label="Page navigation">
         <ul class="pagination">
           <li><a href="#">共 <?php echo $total_count; ?> 条</a></li>
