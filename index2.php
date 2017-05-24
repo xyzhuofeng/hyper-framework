@@ -108,53 +108,6 @@ EOD;
       ?>
     <div class="text-center">
         <?php echo $paginator->render(); ?>
-      <nav aria-label="Page navigation">
-        <ul class="pagination">
-          <li><a href="#">共 <?php echo $total_count; ?> 条</a></li>
-            <?php
-            // 上一页按钮
-            $css = '';
-            $url = '#';
-            // 已经是第一页自然就没有上一页
-            if ($page <= 1) {
-                $css = 'class="disabled"';
-            } else {
-                $url = './index2.php?page=' . ($page - 1);
-            }
-            echo <<<STR
-          <li {$css}>
-            <a href="{$url}" aria-label="Previous">
-              <span aria-hidden="true">&laquo;</span>
-            </a>
-          </li>
-STR;
-            // 页码
-            for ($i = 1; $i <= $total_page; $i++) {
-                if ($i == $page) {
-                    echo '<li class="active"><a href="#">' . $i . '</a></li>';
-                } else {
-                    echo '<li><a href="./index2.php?page=' . $i . '">' . $i . '</a></li>';
-                }
-            }
-            // 下一页按钮
-            $css = '';
-            $url = '#';
-            // 已经是最后一页自然就没有下一页
-            if ($page >= $total_page) {
-                $css = 'class="disabled"';
-            } else {
-                $url = './index2.php?page=' . ($page + 1);
-            }
-            echo <<<STR
-          <li {$css}>
-            <a href="{$url}" aria-label="Next">
-              <span aria-hidden="true">&raquo;</span>
-            </a>
-          </li>
-STR;
-            ?>
-        </ul>
-      </nav>
     </div>
   </div>
 </div>

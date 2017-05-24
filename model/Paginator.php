@@ -69,7 +69,7 @@ class Paginator implements Iterator
     {
         $str = '<nav aria-label="Page navigation">';
         $str .= '<ul class="pagination">';
-        $str .= '<li><a href="#">共 ' . $this->$total_count . ' 条</a></li>';
+        $str .= '<li><a href="#">共 ' . $this->total_count . ' 条</a></li>';
         // 上一页按钮
         $css = '';
         $url = '#';
@@ -89,7 +89,7 @@ class Paginator implements Iterator
 STR;
         $str .= $t;
         // 页码
-        for ($i = 1; $i <= $this->$total_count; $i++) {
+        for ($i = 1; $i <= $this->total_page; $i++) {
             if ($i == $this->page) {
                 $str .= '<li class="active"><a href="#">' . $i . '</a></li>';
             } else {
@@ -100,7 +100,7 @@ STR;
         $css = '';
         $url = '#';
         // 已经是最后一页自然就没有下一页
-        if ($this->page >= $this->total_count) {
+        if ($this->page >= $this->total_page) {
             $css = 'class="disabled"';
         } else {
             $url = './index2.php?page=' . ($this->page + 1);
