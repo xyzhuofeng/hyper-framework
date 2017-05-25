@@ -1,6 +1,7 @@
 <?php
 
 namespace app\controller;
+
 use app\model\Contacts;
 
 /**
@@ -12,7 +13,8 @@ class Index
     /**
      * 首页
      */
-    public function index(){
+    public function index()
+    {
         if (isset($_GET['keyword']) && $_GET['keyword'] !== '') {
             $keyword = addslashes(htmlspecialchars(trim($_GET['keyword'])));
         } else {
@@ -24,6 +26,6 @@ class Index
         } else {
             $result = Contacts::all();
         }
-        require APP_PATH.'/view/index/index.php';
+        require APP_PATH . '/view/index/index.php';
     }
 }
