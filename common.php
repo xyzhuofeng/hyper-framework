@@ -6,6 +6,28 @@
 
 header('Content-Type: text/html;charset=utf8');
 
+// 项目自动加载方法
+function proj_autoloader($class)
+{
+    // 根命名空间=>根文件夹
+    $psr4 = [
+        'app' => 'application',
+        'hyper' => 'hyperqing'
+    ];
+    // 取出根命名空间
+    $path_info = explode('\\', $class);
+    // 将根命名空间转为目录
+    if(!isset($psr4[$path_info[0]])){
+        throw new Exception('Can not found namespace: '.$path_info[0]);
+    }
+    $path_info[0] = $psr4[$path_info[0]];
+    // 重新组装路径
+    $class = implode('\\', $path_info);
+    require_once __DIR__ . '/' . $class . '.php';
+}
+// 注册加载方法
+spl_autoload_register('proj_autoloader');
+
 /**
  * 配置类
  * Class Config
