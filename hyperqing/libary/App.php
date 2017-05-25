@@ -28,18 +28,22 @@ class App
             // 大小写规则:1.控制器类名首字母大写
             // 2.方法无论大小写，通过反射获得真实方法名
             $dispatch[0] = ucfirst($dispatch[0]);
-            $method_name = $dispatch[1];
+            $action = $dispatch[1];
             // 控制器类需要组装命名空间
-            $class_name = '\\' . Config::get('app_namespace') . '\\controller\\' . $dispatch[0];
+            $controller = '\\' . Config::get('app_namespace') . '\\controller\\' . $dispatch[0];
             // 反射获取真实方法名
-            $reflection = new \ReflectionMethod($class_name, $method_name);
+            $reflection = new \ReflectionMethod($controller, $action);
+            Request::instance()->controller($controller);
+            Request::instance()->action($action);
             // 实例化控制器类
-            $class = new $class_name;
+            $class = new $controller;
             // 调用方法
-            $class->$method_name();
+            $class->$action();
         } else {
             // 直接访问index.php的情况
             // 默认实例化Index\index()
+            Request::instance()->controller('Index');
+            Request::instance()->action('index');
             $class = new Index();
             $class->index();
         }
