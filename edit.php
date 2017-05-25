@@ -1,5 +1,5 @@
 <?php
-require_once __DIR__ . '/common.php';
+require_once __DIR__ . '/hyperqing.php';
 // 过滤参数
 $id = 0;
 if (isset($_GET['id']) && $_GET['id'] !== '') {

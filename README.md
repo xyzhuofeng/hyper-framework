@@ -14,6 +14,7 @@ by HyperQing 2017-05-20
 - 网站单一入口
 - 路由规则
 - URL生成
+- 支持PATHINFO
 
 ## 语言和工具
 
@@ -30,6 +31,27 @@ CREATE TABLE contacts(
   phone CHAR(11) COMMENT '手机',
   email VARCHAR(100) COMMENT '邮箱'
 )COMMENT '通讯录' ENGINE InnoDB CHAR SET utf8mb4;
+```
+
+## 框架用法
+
+### 数据库
+
+#### 获取连接对象
+
+```php
+Connection::getInstance();
+```
+
+### 配置
+
+#### 配置目录
+
+根目录下`config/config.php`文件( `CONF_PATH` )
+
+#### 读取配置
+```php
+Config::get('配置名');
 ```
 
 ## 版权

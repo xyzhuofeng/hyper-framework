@@ -1,5 +1,5 @@
 <?php
-require_once __DIR__ . '/common.php';
+require_once __DIR__ . '/hyperqing.php';
 // 过滤参数
 if (isset($_GET['keyword']) && $_GET['keyword'] !== '') {
     $keyword = addslashes(htmlspecialchars(trim($_GET['keyword'])));

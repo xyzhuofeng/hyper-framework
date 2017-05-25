@@ -1,13 +1,15 @@
 <?php
 
+namespace app\model;
+
+use hyper\Connection;
+
 /**
  * 通讯录
  * Class Contacts
  */
 class Contacts
 {
-    private $whereList = null;
-
     /**
      * 添加记录
      * @param array $data
@@ -15,7 +17,7 @@ class Contacts
      */
     public static function save(array $data)
     {
-        $pdo = DBDriver::getInstance();
+        $pdo = Connection::getInstance();
         $state = $pdo->prepare('INSERT INTO contacts (name, phone, email) VALUES (?,?,?) ');
         $state->bindParam(1, $data['name']);
         $state->bindParam(2, $data['phone']);
@@ -33,12 +35,12 @@ class Contacts
      */
     public static function get(int $id)
     {
-        $pdo = DBDriver::getInstance();
+        $pdo = Connection::getInstance();
         $prepare = 'SELECT * FROM contacts WHERE id = ?';
         $state = $pdo->prepare($prepare);
-        $state->bindParam(1, $id, PDO::PARAM_INT);
+        $state->bindParam(1, $id, \PDO::PARAM_INT);
         $state->execute();
-        return $state->fetch(PDO::FETCH_ASSOC);
+        return $state->fetch(\PDO::FETCH_ASSOC);
     }
 
     /**
@@ -47,10 +49,10 @@ class Contacts
      */
     public static function all()
     {
-        $pdo = DBDriver::getInstance();
+        $pdo = Connection::getInstance();
         $state = $pdo->prepare('SELECT * FROM contacts');
         $state->execute();
-        return $state->fetchAll(PDO::FETCH_ASSOC);
+        return $state->fetchAll(\PDO::FETCH_ASSOC);
     }
 
     /**
@@ -60,7 +62,7 @@ class Contacts
      */
     public static function findByKeyword(string $keyword)
     {
-        $pdo = DBDriver::getInstance();
+        $pdo = Connection::getInstance();
         $keyword = '%' . $keyword . '%';
         $prepare = 'SELECT * FROM contacts WHERE name LIKE ? OR phone LIKE ? OR email LIKE ?';
         $state = $pdo->prepare($prepare);
@@ -68,7 +70,7 @@ class Contacts
         $state->bindParam(2, $keyword);
         $state->bindParam(3, $keyword);
         $state->execute();
-        return $state->fetchAll(PDO::FETCH_ASSOC);
+        return $state->fetchAll(\PDO::FETCH_ASSOC);
     }
 
     /**
@@ -79,7 +81,7 @@ class Contacts
      */
     public static function update(int $id, array $data)
     {
-        $pdo = DBDriver::getInstance();
+        $pdo = Connection::getInstance();
         $state = $pdo->prepare('UPDATE contacts SET name=?,phone=?,email=? WHERE id=?');
         $state->bindParam(1, $data['name']);
         $state->bindParam(2, $data['phone']);
@@ -99,7 +101,7 @@ class Contacts
     public static function deleteByIdList(array $id_list)
     {
         $list_str = implode(',', $id_list);
-        $pdo = DBDriver::getInstance();
+        $pdo = Connection::getInstance();
         $prepare = 'DELETE FROM contacts WHERE id IN (' . $list_str . ')';
         $state = $pdo->prepare($prepare);
         if ($state->execute()) {

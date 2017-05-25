@@ -3,7 +3,7 @@
  * 删除联系人
  */
 
-require_once __DIR__ . '/common.php';
+require_once __DIR__ . '/hyperqing.php';
 // 检查请求类型
 if ($_SERVER['REQUEST_METHOD'] != 'POST') {
     error('非法操作');
