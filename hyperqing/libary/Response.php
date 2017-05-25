@@ -3,10 +3,11 @@
 namespace hyper;
 
 /**
- * 模型类
+ * 响应类
  * @package hyper
+ * @author HyperQing
  */
-class Model
+class Response
 {
 
 }

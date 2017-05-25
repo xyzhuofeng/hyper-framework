@@ -1,11 +1,13 @@
 <?php
 
+namespace hyper;
+
 /**
  * 分页类
- * Class Paginator
+ * @author HyperQing
  * 实现迭代器接口
  */
-class Paginator implements Iterator
+class Paginator implements \Iterator
 {
     /**
      * @var array 数据集
