@@ -4,7 +4,9 @@ by HyperQing 2017-05-20
 
 本项目以简单的通讯录为业务背景，从散乱的php文件改造成Web框架项目。
 
-本项目不使用composer，以期尝试实践自动加载。
+本项目不使用composer，以期尝试实践框架设计。
+
+[TOC]
 
 ## 涉及技术
 
@@ -23,6 +25,8 @@ by HyperQing 2017-05-20
 - Bootstrap
 
 ## SQL
+
+以简单通讯录增删查改操作展示业务场景示例。
 
 ```sql
 CREATE TABLE contacts(
