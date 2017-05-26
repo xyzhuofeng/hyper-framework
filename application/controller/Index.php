@@ -28,4 +28,13 @@ class Index
         }
         require APP_PATH . '/view/index/index.php';
     }
+
+    /**
+     * 删除通讯录记录
+     * POST
+     * id_list: 要删除的记录id列表数组
+     */
+    public function del(){
+
+    }
 }
