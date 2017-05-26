@@ -80,17 +80,13 @@ class Request
         $action = $dispatch[1];
         // 控制器类需要组装命名空间
         $controller = '\\' . Config::get('app_namespace') . '\\controller\\' . $dispatch[0];
-
-        var_dump($controller);
-
         // 反射获取真实方法名
         try {
+//            new \ReflectionClass($controller);
             $reflection = new \ReflectionMethod($controller, $action);
-        } catch (\Exception $e) {
-            var_dump($e);
+        } catch (\ReflectionException $e) {
+            throw new AppException(502, '无法加载控制器或方法:' . $controller . $action);
         }
-        exit;
-        var_dump($reflection);
         $this->controller = $controller;
         $this->action = $action;
     }

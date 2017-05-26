@@ -9,7 +9,7 @@ header('Content-Type: text/html;charset=utf8');
 /**
  * 项目自动加载方法
  * @param $class
- * @throws Exception
+ * @throws ReflectionException
  */
 function proj_autoloader($class)
 {
@@ -22,11 +22,14 @@ function proj_autoloader($class)
     $path_info = explode('\\', $class);
     // 将根命名空间转为目录
     if (!isset($psr4[$path_info[0]])) {
-        throw new Exception('Can not found namespace: ' . $path_info[0]);
+        throw new \ReflectionException('命名空间未声明: ' . $path_info[0]);
     }
     $path_info[0] = $psr4[$path_info[0]];
     // 重新组装路径
     $class = implode('\\', $path_info);
+    if (!file_exists(WEB_ROOT . '/' . $class . '.php')) {
+        throw new \ReflectionException('自动加载文件时未找到：' . WEB_ROOT . '/' . $class . '.php');
+    }
     require_once WEB_ROOT . '/' . $class . '.php';
 }
 

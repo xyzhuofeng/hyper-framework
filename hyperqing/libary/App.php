@@ -18,10 +18,15 @@ class App
      */
     public static function run()
     {
-        // 请求类可以告知app应该实例化何种方法
-        $controller = Request::instance()->controller();
-        $action = Request::instance()->action();
-        $class = new $controller();
-        $class->$action();
+        try {
+            // 请求类可以告知app应该实例化何种方法
+            $controller = Request::instance()->controller();
+            $action = Request::instance()->action();
+            $class = new $controller();
+            $class->$action();
+        } catch (\Exception $e) {
+            // 处理框架所有的异常
+            var_dump($e->getMessage());
+        }
     }
 }
