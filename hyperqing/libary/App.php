@@ -2,8 +2,6 @@
 
 namespace hyper;
 
-use app\controller\Index;
-
 /**
  * 框架核心App类
  * 负责管理框架生命周期
@@ -19,13 +17,15 @@ class App
     public static function run()
     {
         try {
+            // 获取请求类实例
+            $request = Request::instance();
             // 请求类可以告知app应该实例化何种方法
-            $controller = Request::instance()->controller();
-            $action = Request::instance()->action();
+            $controller = $request->controller();
+            $action = $request->action();
             $class = new $controller();
             $class->$action();
         } catch (\Exception $e) {
-            // 处理框架所有的异常
+            // 处理框架运行过程中所有的异常
             var_dump($e->getMessage());
         }
     }
