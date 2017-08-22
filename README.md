@@ -4,16 +4,21 @@ by HyperQing 2017-05-20
 
 本项目以简单的通讯录为业务背景，从散乱的php文件改造成Web框架项目。
 
-本项目不使用composer，以期尝试实践框架设计。
+本项目不使用composer实现自动加载，以期尝试实践框架设计。
 
 [TOC]
+
+## 项目背景
+
+- MVC框架原理演示
+- 用于团队教学
 
 ## 涉及技术
 
 - 单例模式的配置类和PDO驱动类
-- 命名空间和动加载
-- MVC框架
-- 网站单一入口
+- 命名空间和自动加载
+- MVC框架设计
+- 网站单一入口原则
 - 路由规则
 - URL生成
 - 支持PATHINFO
@@ -44,7 +49,7 @@ CREATE TABLE contacts(
 #### 获取连接对象
 
 ```php
-Connection::getInstance();
+Connection::instance();
 ```
 
 ### 配置

@@ -18,7 +18,7 @@ class Connection
      * 获取PDO连接对象
      * @return \PDO
      */
-    public static function getInstance()
+    public static function instance()
     {
         if (self::$pdo) {
             return self::$pdo;
