@@ -1,6 +1,10 @@
-# 自制Web框架项目
+# Hyper-Framework
+
+>自制PHP MVC框架
 
 by HyperQing 2017-05-20
+
+# 目前正在重新设计中，README为过时内容，仅供参考。
 
 本项目以简单的通讯录为业务背景，从散乱的php文件改造成Web框架项目。
 
