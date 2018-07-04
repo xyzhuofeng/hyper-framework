@@ -61,11 +61,11 @@ if ($keyword) {
         </button>
       </div>
       <div class="col-sm-6 text-right">
-        <form class="form-inline" action="./index.php" method="get">
+        <form class="form-inline" action="index.php" method="get">
           <input type="text" name="keyword" class="form-control" placeholder="输入关键字"
                  value="<?php echo $keyword ? $keyword : ''; ?>">
           <input type="submit" value="搜索" class="btn btn-default">
-          <a href="./index.php">清除条件</a>
+          <a href="index.php">清除条件</a>
         </form>
       </div>
     </div>
@@ -120,7 +120,7 @@ EOD;
               aria-hidden="true">&times;</span></button>
         <h4 class="modal-title" id="myModalLabel">新增联系人</h4>
       </div>
-      <form action="./save.php" method="post">
+      <form action="save.php" method="post">
         <div class="modal-body">
           <div class="form-group">
             <label for="name">联系人姓名</label>

@@ -41,7 +41,7 @@ if (!$result) {
     <button type="button" class="btn btn-default" onclick="window.history.go(-1)">
       <i class="glyphicon glyphicon-arrow-left"></i> 返回
     </button>
-    <form action="./update.php" method="post" class="form-horizontal">
+    <form action="update.php" method="post" class="form-horizontal">
       <input type="hidden" name="id" value="<?php echo $id; ?>">
       <div class="form-group">
         <label for="name" class="col-sm-2 control-label">联系人姓名</label>
